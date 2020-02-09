@@ -57,7 +57,7 @@
           </v-col>
         </v-row>
         <div v-else class="text-center">
-          投稿された記事はありません。
+          投稿さ記事はありません。
         </div>
       </v-col>
     </v-row>
