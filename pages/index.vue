@@ -29,11 +29,18 @@
                 max-height="200"
                 class="white--text"
               >
-                <v-card-title class="align-end fill-height font-weight-bold">
-                  {{ post.fields.title }}
-                </v-card-title>
+                <v-card-text>
+                  <v-chip
+                    :color="categoryColor(post.fields.category)"
+                    small
+                    dark
+                    to="#"
+                    class="font-weight-bold"
+                  >
+                    {{ post.fields.category.fields.name }}
+                  </v-chip>
+                </v-card-text>
               </v-img>
-
               <v-card-text>
                 {{ post.fields.publishdate }}
               </v-card-text>
@@ -57,7 +64,7 @@
           </v-col>
         </v-row>
         <div v-else class="text-center">
-          投稿さ記事はありません。
+          投稿された記事はありません。
         </div>
       </v-col>
     </v-row>
@@ -68,6 +75,18 @@
 import client from '~/plugins/contentful'
 
 export default {
+  computed: {
+    categoryColor () {
+      return (category) => {
+        switch (category.fields.name) {
+          case 'イベント、ミーティング': return '#C73A31'
+          case '自己紹介、雑談等': return '#236244'
+          case 'お知らせ': return 'primary'
+          default: return 'grey darken-3'
+        }
+      }
+    }
+  },
   async asyncData ({ env }) {
     let posts = []
     await client.getEntries({
