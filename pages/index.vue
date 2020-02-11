@@ -167,7 +167,7 @@
                 </v-row>
                 <v-row>
                   <v-btn
-                    @click.stop="dialog = true"
+                    @click.stop="onClickBtn(post)"
                     color="accent"
                     text
                     class="ml-6 mb-1"
@@ -181,45 +181,81 @@
                     text
                     class="mr-6 mb-1"
                   >
-                    Jump!
+                    Jump
                   </v-btn>
                 </v-row>
               </v-card>
-              <v-dialog
-                v-model="dialog"
-                max-width="700"
-              >
-                <v-card>
-                  <v-img
-                    :src="post.fields.image.fields.file.url"
-                    :alt="post.fields.image.fields.title"
-                    :aspect-ratio="16/9"
-                  />
-                  <v-card-text>
-                    {{ post.fields.body }}
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-btn
-                      to="post.fields.url"
-                      text
-                      color="primary"
-                      class="mr-3"
-                    >
-                      こちら！
-                    </v-btn>
-                    <v-spacer />
-                    <v-btn
-                      @click="dialog = false"
-                      color="green darken-1"
-                      text
-                      class="mr-3"
-                    >
-                      閉じる
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
             </v-col>
+            <v-dialog
+              v-model="dialog"
+              v-if="currentBook"
+              max-width="700"
+              activator
+            >
+              <v-card>
+                <v-img
+                  :src="currentBook.fields.image.fields.file.url"
+                  :alt="currentBook.fields.image.fields.title"
+                  :aspect-ratio="16/9"
+                >
+                  <v-card-text>
+                    <v-chip
+                      :color="categoryColor(currentBook.fields.category)"
+                      small
+                      dark
+                      to="linkTo('categories', currentBook.fields.category)"
+                      class="font-weight-bold"
+                    >
+                      {{ currentBook.fields.category.fields.name }}
+                    </v-chip>
+                  </v-card-text>
+                </v-img>
+                <v-col>
+                <template v-if="currentBook.fields.tags">
+                  <v-chip
+                    v-for="(tag) in currentBook.fields.tags"
+                    :key="tag.sys.id"
+                    to="linkTo('tags', tag)"
+                    small
+                    outlined
+                    label
+                    class="ml-3 my-3"
+                  >
+                    <v-icon
+                      left
+                      size="18"
+                      color="grey"
+                    >
+                      mdi-label
+                    </v-icon>
+                    {{ tag.fields.name }}
+                  </v-chip>
+                </template>
+              </v-col>
+                <v-card-text>
+                  {{ currentBook.fields.body }}
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn
+                    :href="currentBook.fields.url"
+                    text
+                    color="primary"
+                    class="mr-3"
+                  >
+                    JUMP
+                  </v-btn>
+                  <v-spacer />
+                  <v-btn
+                    @click="dialog = false"
+                    color="green darken-1"
+                    text
+                    class="mr-3"
+                  >
+                    Close
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </v-row>
           <div v-else class="text-center">
             投稿された記事はありません。
@@ -237,6 +273,7 @@ export default {
     return {
       dialog: false,
       drawer: false,
+      currentBook: null,
       group: null
     }
   },
@@ -270,6 +307,12 @@ export default {
       order: '-fields.publishdate'
     }).then(res => (posts = res.items)).catch(console.error)
     return { posts }
+  },
+  methods: {
+    onClickBtn (post) {
+      this.currentBook = post
+      this.dialog = true
+    }
   }
 }
 </script>
