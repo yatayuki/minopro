@@ -1,4 +1,3 @@
-import defaultEyeCatch from '~/assets/images/defaultEyeCatch.jpeg'
 import client from '~/plugins/contentful'
 
 export const state = () => ({
@@ -6,9 +5,6 @@ export const state = () => ({
 })
 
 export const getters = {
-  SetEyecatch: () => (post) => {
-    if (!!post.fields.image && !!post.fields.image.fields) { return { url: `https:${post.fields.image.fields.file.url}`, title: post.fields.image.fields.title } } else { return { url: defaultEyeCatch, title: 'defaultImage' } }
-  }
 }
 export const mutations = {
   setCategories (state, payload) {
