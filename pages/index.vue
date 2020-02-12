@@ -118,7 +118,7 @@
               xl="3"
             >
               <v-card
-                max-width="400"
+                max-width="500"
                 class="mx-auto"
               >
                 <v-img
@@ -140,37 +140,11 @@
                   </v-card-text>
                 </v-img>
                 <v-row>
-                  <v-card-text
-                    class="py-1"
-                  >
-                    <template v-if="post.fields.tags">
-                      <v-chip
-                        v-for="(tag) in post.fields.tags"
-                        :key="tag.sys.id"
-                        to="linkTo('tags', tag)"
-                        small
-                        label
-                        outlined
-                        class="mx-1 mt-2"
-                      >
-                        <v-icon
-                          left
-                          size="18"
-                          color="grey"
-                        >
-                          mdi-label
-                        </v-icon>
-                        {{ tag.fields.name }}
-                      </v-chip>
-                    </template>
-                  </v-card-text>
-                </v-row>
-                <v-row>
                   <v-btn
                     @click.stop="onClickBtn(post)"
                     color="accent"
                     text
-                    class="ml-6 mb-1"
+                    class="ml-6 my-1"
                   >
                     ABOUT
                   </v-btn>
@@ -179,7 +153,7 @@
                     :href="post.fields.url"
                     color="accent"
                     text
-                    class="mr-6 mb-1"
+                    class="mr-6 my-1"
                   >
                     Jump
                   </v-btn>
