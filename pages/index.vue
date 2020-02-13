@@ -3,6 +3,7 @@
     <v-img
       src="https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/49442049_2136301306456649_298560287894667264_o.jpg?_nc_cat=110&_nc_oc=AQm6SjyaXB34cG_zdLx5Rjuk7CQAXyr58Z3aMAGzJl1DIXZB1Of2MDH4kvU0-XyVTEKNOFVRFe6z2rOIb-vMisPO&_nc_ht=scontent-nrt1-1.xx&oh=b49d0781ed640818ae9d70e2c4e43499&oe=5EBAF5BD"
       max-height="250"
+      to="/"
     >
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
@@ -130,9 +131,9 @@
                   <v-card-text>
                     <v-chip
                       :color="categoryColor(post.fields.category)"
+                      :to="linkTo('categories',post.fields.category)"
                       small
                       dark
-                      to="linkTo('categories', post.fields.category)"
                       class="font-weight-bold"
                     >
                       {{ post.fields.category.fields.name }}
@@ -175,9 +176,9 @@
                   <v-card-text>
                     <v-chip
                       :color="categoryColor(currentBook.fields.category)"
+                      :to="linkTo('categories',currentBook.fields.category)"
                       small
                       dark
-                      to="linkTo('categories', currentBook.fields.category)"
                       class="font-weight-bold"
                     >
                       {{ currentBook.fields.category.fields.name }}
@@ -185,26 +186,26 @@
                   </v-card-text>
                 </v-img>
                 <v-col>
-                <template v-if="currentBook.fields.tags">
-                  <v-chip
-                    v-for="(tag) in currentBook.fields.tags"
-                    :key="tag.sys.id"
-                    to="linkTo('tags', tag)"
-                    small
-                    outlined
-                    label
-                    class="ml-3 my-3"
-                  >
-                    <v-icon
-                      left
-                      size="18"
-                      color="grey"
+                  <template v-if="currentBook.fields.tags">
+                    <v-chip
+                      v-for="(tag) in currentBook.fields.tags"
+                      :key="tag.sys.id"
+                      to="linkTo('tags', tag)"
+                      small
+                      outlined
+                      label
+                      class="ml-3 my-3"
                     >
-                      mdi-label
-                    </v-icon>
-                    {{ tag.fields.name }}
-                  </v-chip>
-                </template>
+                      <v-icon
+                        left
+                        size="18"
+                        color="grey"
+                      >
+                        mdi-label
+                      </v-icon>
+                      {{ tag.fields.name }}
+                    </v-chip>
+                  </template>
               </v-col>
                 <v-card-text>
                   {{ currentBook.fields.body }}
@@ -241,7 +242,7 @@
 </template>
 
 <script>
-import client from '~/plugins/contentful'
+import { mapState, mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -252,9 +253,8 @@ export default {
     }
   },
   computed: {
-    linkTo: () => (obj) => {
-      return { name: 'posts-slug', params: { slug: obj.fields.slug } }
-    },
+    ...mapState(['posts']),
+    ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo']),
     categoryColor () {
       return (category) => {
         switch (category.fields.name) {
@@ -273,14 +273,6 @@ export default {
     group () {
       this.drawer = false
     }
-  },
-  async asyncData ({ env }) {
-    let posts = []
-    await client.getEntries({
-      content_type: env.CTF_BLOG_POST_TYPE_ID,
-      order: '-fields.publishdate'
-    }).then(res => (posts = res.items)).catch(console.error)
-    return { posts }
   },
   methods: {
     onClickBtn (post) {
