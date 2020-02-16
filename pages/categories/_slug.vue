@@ -178,7 +178,7 @@
                 <v-chip
                   v-for="(tag) in currentBook.fields.tags"
                   :key="tag.sys.id"
-                  to="linkTo('tags', tag)"
+                  :to="linkTo('tags', tag)"
                   small
                   outlined
                   label
@@ -229,6 +229,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -239,6 +240,8 @@ export default {
     }
   },
   computed: {
+    ...mapState(['posts']),
+    ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo']),
     relatedPosts () {
       return this.$store.getters.relatedPosts(this.category)
     },

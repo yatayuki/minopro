@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-img
-      src="https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/49442049_2136301306456649_298560287894667264_o.jpg?_nc_cat=110&_nc_oc=AQm6SjyaXB34cG_zdLx5Rjuk7CQAXyr58Z3aMAGzJl1DIXZB1Of2MDH4kvU0-XyVTEKNOFVRFe6z2rOIb-vMisPO&_nc_ht=scontent-nrt1-1.xx&oh=b49d0781ed640818ae9d70e2c4e43499&oe=5EBAF5BD"
+      src="https://www.facebook.com/590300771345403/photos/2136308923122554/?av=100044170992325"
       max-height="250"
       to="/"
     >
@@ -22,78 +22,42 @@
     >
       <v-expansion-panels>
         <v-expansion-panel>
-          <v-expansion-panel-header>箕輪編集室</v-expansion-panel-header>
+          <v-expansion-panel-header>カテゴリ一覧</v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-btn width="300" class="mx-auto my-2">
-              箕輪編集室
+            <v-btn href="categories/others" width="300" class="mx-auto my-2">
+              その他
             </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              エンジニアチーム
+            <v-btn href="categories/study" width="300" class="mx-auto my-2">
+              講座・勉強会
             </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              デザインチーム
+            <v-btn href="categories/making" width="300" class="mx-auto my-2">
+              作品制作・プロジェクト
             </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              PRチーム
+            <v-btn href="categories/q" width="300" class="mx-auto my-2">
+              質問・アンケート
             </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              学生チーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              ライターチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              メディアチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              イベントプロデュースチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              コミュニティデザインチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              キャリアデザインチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              神社プロデュースチーム
+            <v-btn href="categories/notice" width="300" class="mx-auto my-2">
+              お知らせ
             </v-btn>
           </v-expansion-panel-content>
         </v-expansion-panel>
         <v-expansion-panel>
-          <v-expansion-panel-header>マイプロジェクト</v-expansion-panel-header>
+          <v-expansion-panel-header>カテゴリ一覧</v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-btn width="300" class="mx-auto my-2">
-              箕輪編集室
+            <v-btn href="categories/others" width="300" class="mx-auto my-2">
+              その他
             </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              エンジニアチーム
+            <v-btn href="categories/study" width="300" class="mx-auto my-2">
+              講座・勉強会
             </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              デザインチーム
+            <v-btn href="categories/making" width="300" class="mx-auto my-2">
+              作品制作・プロジェクト
             </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              PRチーム
+            <v-btn href="categories/q" width="300" class="mx-auto my-2">
+              質問・アンケート
             </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              学生チーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              ライターチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              メディアチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              イベントプロデュースチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              コミュニティデザインチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              キャリアデザインチーム
-            </v-btn>
-            <v-btn width="300" class="mx-auto my-2">
-              神社プロデュースチーム
+            <v-btn href="categories/notice" width="300" class="mx-auto my-2">
+              お知らせ
             </v-btn>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -190,7 +154,7 @@
                     <v-chip
                       v-for="(tag) in currentBook.fields.tags"
                       :key="tag.sys.id"
-                      to="linkTo('tags', tag)"
+                      :to="linkTo('tags', tag)"
                       small
                       outlined
                       label
@@ -206,7 +170,7 @@
                       {{ tag.fields.name }}
                     </v-chip>
                   </template>
-              </v-col>
+                </v-col>
                 <v-card-text>
                   {{ currentBook.fields.body }}
                 </v-card-text>

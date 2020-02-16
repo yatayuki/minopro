@@ -2,7 +2,8 @@ import client from '~/plugins/contentful'
 
 export const state = () => ({
   posts: [],
-  categories: []
+  categories: [],
+  tags: []
 })
 
 export const getters = {
@@ -16,6 +17,14 @@ export const getters = {
       if (category.sys.id === catId) { posts.push(state.posts[i]) }
     }
     return posts
+  },
+  relateedPosts: state => (tag) => {
+    const posts = []
+    for (let i = 0; i < state.posts.length; i++) {
+      const catId = state.posts[i].fields.tag.sys.id
+      if (tag.sys.id === catId) { posts.push(state.posts[i]) }
+    }
+    return posts
   }
 }
 export const mutations = {
@@ -24,6 +33,10 @@ export const mutations = {
   },
   setCategories (state, payload) {
     state.categories = payload
+  },
+  setTags (state, payload) {
+    state.tags = payload
+    console.log(state.tags)
   }
 
 }
@@ -34,6 +47,13 @@ export const actions = {
       order: 'fields.sort'
     }).then(res =>
       commit('setCategories', res.items)
+    ).catch(console.error)
+  },
+  async getTags ({ commit }) {
+    await client.getEntries({
+      content_type: 'tag'
+    }).then(res =>
+      commit('setTags', res.items)
     ).catch(console.error)
   },
   async getPosts ({ commit }) {
