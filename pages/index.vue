@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-img
-      src="https://www.facebook.com/590300771345403/photos/2136308923122554/?av=100044170992325"
+      src="https://scontent-nrt1-1.xx.fbcdn.net/v/t1.0-9/49025949_2136308929789220_1693793277427318784_o.jpg?_nc_cat=102&_nc_sid=825194&_nc_oc=AQm1LDffab0fr-fNwqPVW4fA4Nxnz1ZfpLLWvhbMfMeFdWxasYI7NlL4qfhweW-bZh-4tPfQA_Q1S1bk8DnS9sJn&_nc_ht=scontent-nrt1-1.xx&oh=3e26e4778ec6e70df9d5ed0538862f74&oe=5E93F952"
       max-height="250"
       to="/"
     >
